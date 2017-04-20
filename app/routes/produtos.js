@@ -1,11 +1,7 @@
 module.exports = function(app) {
   app.get('/produtos', function(req, res){
-
-    var mongoose = app.infra.dbConnection();
-    var kittySchema = mongoose.Schema({
-      name: String
-    });
-    var Kitten = mongoose.model('Kitten', kittySchema); //primeiro parametro é o nome do modelo, e depois o esquema
+    var Kitten = app.infra.dbConnection();
+     //primeiro parametro é o nome do modelo, e depois o esquema
 
     // kittySchema.methods.speak = function () {
     //   var greeting = this.name
@@ -47,5 +43,20 @@ module.exports = function(app) {
     // });
     // connection.end;
     // res.render("produtos/lista");
+  });
+
+  app.get('/produtos/form', function(req, res) {
+    res.render('produtos/form');
+  });
+
+  app.post('/produtos/salva', function(req, res) {
+    // var produtosBanco = new app.infra.ProdutosDAO(Kitten);
+    var connection = app.infra.dbConnection();
+    var produto = req.body;
+    console.log(produto);
+
+    // produtosBanco.salva(produto, function(err, resutados) {
+    //   res.render('produtos/lista');
+    // });
   });
 }

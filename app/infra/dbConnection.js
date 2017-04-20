@@ -5,8 +5,12 @@ function createDBConnection() {
     mongoose.connect('mongodb://localhost/test');
     var db = mongoose.connection;
     db.on('error', console.error.bind(console, 'connection error:'));
-
-    return mongoose;
+    var kittySchema = mongoose.Schema({
+      name: String
+    });
+    var Kitten = mongoose.model('Kitten', kittySchema);
+    mongoose.connection.close();
+    return Kitten;
 }
 
 module.exports = function(){
